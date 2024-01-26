@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Button from '../../button';
+import Button from '../../../button';
 
 const FormContainer = styled.div`
   display: flex;
@@ -18,26 +18,14 @@ const StyledInput = styled.input`
   width: 90%;
 `;
 
-const StyledTextarea = styled.textarea`
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 90%;
-  resize: vertical;
-`;
-
-const RoomCardForm = ({ onSubmit, initialValues = {}, onClose }) => {
-  const [name, setName] = useState(initialValues.name || '');
-  const [title, setTitle] = useState(initialValues.title || '');
-  const [description, setDescription] = useState(initialValues.description || '');
+const PricingForm = ({ onSubmit, initialValues = {}, onClose }) => {
+  const [caracteres, setCaracteres] = useState(initialValues.caracteres);
+  const [price, setPrice] = useState(initialValues.price);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setName(initialValues.name || '');
-    setTitle(initialValues.title || '');
-    setDescription(initialValues.description || '');
+    setCaracteres(initialValues.caracteres);
+    setPrice(initialValues.price);
   }, [initialValues]);
 
   const handleSubmit = async (e) => {
@@ -45,11 +33,10 @@ const RoomCardForm = ({ onSubmit, initialValues = {}, onClose }) => {
     setIsLoading(true);
 
     try {
-      onSubmit({ name, title, description });
+      onSubmit({ caracteres, price });
       alert('Enregistrement effectué');
-      setName('');
-      setTitle('');
-      setDescription('');
+      setCaracteres('');
+      setPrice('');
     } catch (error) {
       alert(`Erreur lors de l'enregistrement : ${error.message}`);
     } finally {
@@ -60,26 +47,19 @@ const RoomCardForm = ({ onSubmit, initialValues = {}, onClose }) => {
   return (
     <form onSubmit={handleSubmit}>
       <FormContainer>
-        <StyledInput
+      <StyledInput
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Nom"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          placeholder="Prix"
           required
           disabled={isLoading}
         />
         <StyledInput
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Sous-titre"
-          required
-          disabled={isLoading}
-        />
-        <StyledTextarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
+          value={caracteres}
+          onChange={(e) => setCaracteres(e.target.value)}
+          placeholder="caracteres"
           required
           disabled={isLoading}
         />
@@ -95,4 +75,4 @@ const RoomCardForm = ({ onSubmit, initialValues = {}, onClose }) => {
   );
 };
 
-export default RoomCardForm;
+export default PricingForm;

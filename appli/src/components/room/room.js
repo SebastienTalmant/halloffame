@@ -130,7 +130,6 @@ const Room = () => {
     let popupContent;
   
     if (caseData.URL && caseData.statut === 'validate') {
-      // Case is available and has a valid URL
       popupContent = (
         <PopupContainer onClick={(e) => {
           if (e.target.tagName.toLowerCase() === 'button') {
@@ -155,29 +154,22 @@ const Room = () => {
         </PopupContainer>
       );
     } else {
-      const buttonText = caseData.URL ? 'Fermer' : 'Acheter';
 
-      const onClickHandler = caseData.URL
-      ? () => setPopupContent(null)
-      : () => {
-        navigate('/purchaseForm', { state: { caseId: caseData.id, size: caseData.size } });
-      };
+const goToPurchaseForm = () => {
+    navigate('/purchaseForm', { state: { caseData: caseData,} });
+  };
   
       const message = caseData.URL
         ? 'Emplacement non disponible'
         : 'Emplacement disponible. Rejoignez nous';
   
       popupContent = (
-        <PopupContainer onClick={(e) => {
-          if (e.target.tagName.toLowerCase() === 'button') {
-            onClickHandler();
-          }
-        }}>
+        <PopupContainer >
           <PopupContent>
             <p>{message}</p>
             <ButtonContainer>
-              <Button primary onClick={onClickHandler}>{buttonText}</Button>
-              {!caseData.URL && <Button primary onClick={() => setPopupContent(null)}>Fermer</Button>}
+              {!caseData.URL && <Button primary onClick={goToPurchaseForm}>Acheter</Button>}
+              <Button primary onClick={() => setPopupContent(null)}>Fermer</Button>
             </ButtonContainer>
           </PopupContent>
         </PopupContainer>
@@ -186,9 +178,6 @@ const Room = () => {
   
     setPopupContent(popupContent);
   };
-  
- 
-
 
   return (
     <StyledWrapper>

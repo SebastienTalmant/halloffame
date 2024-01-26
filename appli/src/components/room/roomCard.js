@@ -6,7 +6,6 @@ const RoomCard = ({ roomData }) => {
   const navigate = useNavigate();
 
   const goToRoomPage = () => {
-    console.log('Navigating to room page with data:', roomData.id);
     navigate(`/roomPresentation/${roomData.id}`, { state: { roomData } });
   };
 

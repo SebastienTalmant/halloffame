@@ -3,7 +3,7 @@ import RoomCardForm from './roomCardForm';
 import RoomCardTable from './roomCardTable';
 import axios from 'axios';
 import styled from 'styled-components';
-import API_BASE_URL from '../../apiConfig';
+import API_BASE_URL from '../../../apiConfig';
 
 const DashboardContainer = styled.div`
   display: flex;

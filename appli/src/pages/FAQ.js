@@ -26,7 +26,7 @@ const StyledPresentation = styled.div`
   background-color: #EDF2F4;
   display: flex;
   flex-direction: column;
-  padding: 100px 20px 100px 20px;
+  padding: 100px 20px 100px 20px; 
   @media (max-width: 767px) {
     padding: 30px 20px 50px 20px;
   }
@@ -83,7 +83,7 @@ const FAQ = () => {
           <h2>Pour quoi faire le Hall of Fame ?</h2>
           <p>Le Hall of Fame vous permet de créer un héritage numérique, immortaliser des moments clés de votre vie, favoriser la connexion intergénérationnelle et construire un historique personnel visuel évolutif, le tout partageable avec les générations futures.</p>
           <h2>Comment s'inscrire ?</h2>
-          <p>Pour vous inscrire, rendez-vous dans la section "Nos offres" et commandez votre emplacement. Téléchargez la photo de la personne à mettre en avant, ajoutez le message souhaité, et fournissez les informations requises telles qu'une adresse e-mail de contact et les détails de la personne offrant ce cadeau.</p>
+          <p>Pour vous inscrire, rendez-vous dans la salle de votre choix et cliquez sur l'emplacement libre de votre choix. Remplissez le formulaire et prévisualiser votre cadeau avant paiement.</p>
           <h2>Quand sera affichée ma contribution ?</h2>
           <p>Afin de vérifier que la photo ainsi que le message répondent à nos conditions d'utilisation, votre contribution sera validée dans un délai maximal de 48 heures. Une fois validée, elle sera affichée pour être partagée avec notre communauté. Nous sommes impatients de découvrir et de partager votre histoire !</p><h2>Comment nous contacter ?</h2>
           <p>Pour toute question ou demande, veuillez utiliser notre formulaire de contact disponible sur le site.</p>

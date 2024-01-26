@@ -155,7 +155,7 @@ const App = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
+      if (window.innerWidth >= 768) {
       if (scrollTop > lastScrollTop) {
         // Scrolling down
         setTranslateY(-90);
@@ -166,6 +166,7 @@ const App = () => {
 
       setLastScrollTop(scrollTop);
     };
+  }
 
     window.addEventListener('scroll', handleScroll);
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Connection from './authConnection';
-import RoomDashboard from '../adminDashboard/roomCardDashboard';
+import RoomDashboard from '../adminDashboard/card/roomCardDashboard';
+import PricingDashboard from '../adminDashboard/pricing/pricingDashboard';
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const AdminDashboard = () => {
     <Connection />
     <DashboardContainer>
     <RoomDashboard />
-
+    <PricingDashboard />
     </DashboardContainer>
 
   </>

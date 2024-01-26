@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import backgroundImage from '../pictures/space-1721695_1920.jpg';
 import { useNavigate } from 'react-router-dom';
 import Button from '../button';
+import API_BASE_URL from '../apiConfig';
 
 
 
@@ -45,6 +47,12 @@ const SelectWrapper = styled.div`
   gap: 10px;
   align-items: end;
   justify-content: space-around;
+  @media (max-width: 767px) {
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: justify;
+  }
 `;
 
 const OptionDescription = styled.div`
@@ -71,11 +79,25 @@ const ImagePlaceholder = styled.div`
 
 
 const Purchase = () => {
+  const [pricingData, setPricingData] = useState([]);
+
+  useEffect(() => {
+    const fetchPricingData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}api/pricing`);
+        setPricingData(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données de tarification:', error);
+      }
+    };
+  
+    fetchPricingData();
+  }, []);
+  
 
   const navigate = useNavigate();
 
   const handleEnterClick = () => {
-    // Utilisez la fonction navigate pour naviguer vers la page RoomPresentation
     navigate('/roomPresentation');
   };
 
@@ -92,44 +114,18 @@ const Purchase = () => {
         <p>Voici les différentes tailles que nous proposons.</p>
 
         <SelectWrapper>
-          <OptionContainer>
-            <ImagePlaceholder size={60} />
-            <OptionDescription>
-              <span>Message : 50 mots</span>
-              <span>Taille : 60px</span>
-              <h4>Prix : 39€</h4>
-            </OptionDescription>
-          </OptionContainer>
-
-          <OptionContainer>
-            <ImagePlaceholder size={90} />
-
-            <OptionDescription>
-              <span>Message : 100 mots</span>
-              <span>Taille : 90px</span>
-              <h4>Prix : 59€</h4>
-            </OptionDescription>
-          </OptionContainer>
-
-          <OptionContainer>
-            <ImagePlaceholder size={120} />
-
-            <OptionDescription>
-              <span>Message : 150 mots</span>
-              <span>Taille : 120px</span>
-              <h4>Prix : 79€</h4>
-            </OptionDescription>
-          </OptionContainer>
-
-          <OptionContainer>
-            <ImagePlaceholder size={150} />
-
-            <OptionDescription>
-              <span>Message : 200 mots</span>
-              <span>Taille : 150px</span>
-              <h4>Prix : 99€</h4>
-            </OptionDescription>
-          </OptionContainer>
+        <SelectWrapper>
+  {pricingData.map(option => (
+    <OptionContainer key={option.id}>
+      <ImagePlaceholder size={option.size} />
+      <OptionDescription>
+        <span>Message : {option.caracteres} caractères</span>
+        <span>Taille : {option.size}px</span>
+        <h4>Prix : {option.price}€</h4>
+      </OptionDescription>
+    </OptionContainer>
+  ))}
+</SelectWrapper>
 
         </SelectWrapper>
       </StyledPurchase>

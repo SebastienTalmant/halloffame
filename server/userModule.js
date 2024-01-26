@@ -24,7 +24,6 @@ const login = async (req, res) => {
                 const user = result[0];
                 const updatedAccountLocked = await checkAccountLock(user.id, user.email, res);
 
-                // Reste du code ici
                 console.log(user.account_locked);
                 if (updatedAccountLocked) {
                     bcrypt.compare(password, result[0].password, (err, isMatch) => {
@@ -37,13 +36,9 @@ const login = async (req, res) => {
                             resetLoginAttempts(user.id, res);
 
                             const token = jwt.sign({ userId: result[0].id, email: result[0].email }, 'TejtaNeistasbes211006!?', { expiresIn: '1h' });
-
-                            req.session.email = email;
-                            req.session.role = result[0].role;
                             req.session.admin_id = result[0].id;
                             return res.send({
                                 message: 'Connexion réussie',
-                                role: user.role,
                                 email: user.email,
                                 token: token
                             });
@@ -57,7 +52,7 @@ const login = async (req, res) => {
                     console.log('Account is locked. Access denied.');
                 }
             }
-            else if (result.length === 0) { // Ajoute cette condition pour le cas où l'utilisateur n'est pas trouvé
+            else if (result.length === 0) {
                 console.log('No user found with this email');
                 res.status(404).send('Aucun utilisateur trouvé avec cet email');
             }
@@ -126,8 +121,7 @@ const lockAccount = async (userId, userEmail) => {
     try {
         const lockQuery = 'UPDATE users SET account_locked = 1 WHERE id = ?';
         await db.promise().query(lockQuery, [userId]);
-
-        // Requête pour obtenir la valeur mise à jour de account_locked
+        
         const updatedResult = await db.promise().query('SELECT account_locked FROM users WHERE id = ?', [userId]);
         
         if (updatedResult && updatedResult[0].length > 0) {

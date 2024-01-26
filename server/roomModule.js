@@ -50,8 +50,7 @@ const postRoom = async (req, res) => {
 
 const insertFacesAndCases = async (roomId) => {
     const queryFace = 'INSERT INTO face (id, room_id) VALUES (?, ?)';
-    
-    // Générer séquentiellement des données de faces et de cases
+
     for (let i = 0; i < 8; i++) {
         const faceId = uuidv4();
         try {
@@ -81,11 +80,10 @@ const generateCasesData = async (faceId) => {
         { rows: 1, columns: 16, size: 90 },
     ];
 
-    // Iterate over each layout configuration
     for (const layout of faceLayout) {
         for (let rowIndex = 0; rowIndex < layout.rows; rowIndex++) {
             for (let colIndex = 0; colIndex < layout.columns; colIndex++) {
-                const caseId = uuidv4(); // Generate unique case id
+                const caseId = uuidv4();
                 const size = layout.size;
                 casesData.push({ id: caseId, faceId, size });
             }
